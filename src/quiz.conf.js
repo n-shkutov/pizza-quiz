@@ -27,7 +27,7 @@ const finish = (answers = {}) => ({
 });
 
 const cheeseWay = {
-  title: 'Wow! A like cheese too!',
+  title: 'Wow! I like cheese too!',
   buttonMessage: 'Next',
 };
 
