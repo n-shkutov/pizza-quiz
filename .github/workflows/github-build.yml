@@ -1,0 +1,8 @@
+name: GitHub Actions Build
+on: [push]
+jobs:
+  Build_Static_Files:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm ci
+      - run: npm run build
