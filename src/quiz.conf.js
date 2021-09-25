@@ -29,31 +29,37 @@ const finish = (answers = {}) => ({
 const cheeseWay = {
   title: 'Wow! A like cheese too!',
   buttonMessage: 'Next',
-  next: finish,
 };
 
 const veggieWay = {
   title: 'Yeah, vegetables!',
   buttonMessage: 'Next',
-  next: finish,
 };
 
 const pepperoniWay = {
   title: 'Nice and spicy circle of meat!',
   buttonMessage: 'Next',
-  next: finish,
 };
 
-const config = {
-  ...start,
-  next: {
-    ...choosePizza,
-    pathResolver: {
-      cheesePizza: cheeseWay,
-      veggiePizza: veggieWay,
-      pepperoniPizza: pepperoniWay,
-    },
-  },
+start.next = choosePizza;
+
+choosePizza.prev = start;
+
+finish.prev = choosePizza;
+
+cheeseWay.next = finish;
+cheeseWay.prev = choosePizza;
+
+veggieWay.next = finish;
+veggieWay.prev = choosePizza;
+
+pepperoniWay.next = finish;
+pepperoniWay.prev = choosePizza;
+
+choosePizza.pathResolver = {
+  cheesePizza: cheeseWay,
+  veggiePizza: veggieWay,
+  pepperoniPizza: pepperoniWay,
 };
 
-export default config;
+export default start;

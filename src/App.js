@@ -1,7 +1,8 @@
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  Container, Box, Heading, Button, Flex, Image, AspectRatio,
+  Container, Box, Heading, Button, Flex, Image, AspectRatio, IconButton, Grid,
 } from '@chakra-ui/react';
 import celebrate from 'src/confetti';
 import quizConfig from 'src/quiz.conf';
@@ -11,7 +12,7 @@ const App = () => {
   const [currentStep, setCurrentStep] = useState(quizConfig);
 
   const {
-    title, options = [], optionName, next, pathResolver, buttonMessage, finish, image,
+    title, options = [], optionName, next, pathResolver, buttonMessage, finish, image, prev,
   } = currentStep;
 
   const nextHandler = () => {
@@ -27,6 +28,10 @@ const App = () => {
     if (pathResolver) {
       setCurrentStep(pathResolver[value]);
     }
+  };
+
+  const backHandler = () => {
+    setCurrentStep(prev);
   };
 
   useEffect(() => {
@@ -63,9 +68,10 @@ const App = () => {
           flexDirection="column"
           justifyContent="space-between"
         >
-          <div>
+          <Grid autoFlow="column" gap={4} justifyItems="start" justifyContent="start">
+            {prev && <IconButton icon={<ArrowBackIcon />} onClick={backHandler} />}
             <Heading>{title}</Heading>
-          </div>
+          </Grid>
           <div>
 
             {image && (
@@ -105,7 +111,6 @@ const App = () => {
               )}
 
             {!!buttonMessage && <Button onClick={nextHandler}>{buttonMessage}</Button>}
-
           </div>
         </Box>
       </AnimatePresence>
